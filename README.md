@@ -2,6 +2,8 @@
 
 Provides a function for replacing instances of `@<id>` with the corresponding player ID's name and replcing instances of `&<colour>` with an inline colour code.
 
+## Player Mentions
+
 For example, given that:
 
 * there are three players named: Alice, Bob and Steve
@@ -17,6 +19,27 @@ Becomes:
 Via:
 
 `ExpandMentions(in, out, 128, 0xFFFFFFAA);`
+
+## Colour Codes
+
+Colour codes can be inserted using:
+
+* `&r`: RED
+* `&g`: GREEN
+* `&b`: BLUE
+* `&y`: YELLOW
+* `&p`: PINK
+* `&w`: WHITE
+* `&o`: ORANGE
+* `&n`: NAVY
+
+For example:
+
+`This &rtext &gis &bcoloured!`
+
+Becomes:
+
+`This {FF0000}text {00FF00}is {0000FF}coloured!`
 
 ## Usage
 

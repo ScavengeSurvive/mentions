@@ -5,6 +5,14 @@
         "Southclaws/samp-stdlib",
         "Zeex/amx_assembly",
         "Misiur/YSI-Includes",
-        "ScavengeSurvive/test-boilerplate"
+        "ScavengeSurvive/test-boilerplate",
+
+        "Southclaws/ut_mock_players"
+    ],
+    "builds": [
+        {
+            "name": "test",
+            "args": ["-w203", "-w204", "-w205", "-w206"]
+        }
     ]
 }

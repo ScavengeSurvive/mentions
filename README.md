@@ -60,7 +60,5 @@ Simply add to your `pawn.json` and include:
 To test, simply run the package:
 
 ```bash
-sampctl package run
+sampctl package run --forceBuild --forceEnsure
 ```
-
-The test suite isn't quite done yet though, I need to use Misiur;s `ut_mock_players` to make the @ mentions work but the colour ones do.

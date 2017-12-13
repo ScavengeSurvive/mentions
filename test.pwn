@@ -1,71 +1,57 @@
+#define RUN_TESTS
+#include <ut_mock_players>
+#include <YSI\y_testing>
+
 #include "mentions.inc"
 
-/* todo: use ut_mock_players
-
-#define IsPlayerConnected(%0) (%0 == %0)
-
-#if defined _ALS_GetPlayerName
-    #undef GetPlayerName
-#else
-    #define _ALS_GetPlayerName
-#endif
-
-#define GetPlayerName(%0,%1,%2) FakeGetPlayerName(%0,%1,%2)
-
-#if defined _ALS_GetPlayerColor
-    #undef GetPlayerColor
-#else
-    #define _ALS_GetPlayerColor
-#endif
-#define GetPlayerColor(%0) FakeGetPlayerColor(%0)
-
-FakeGetPlayerName(playerid, out[], len) {
-	switch(playerid) {
-		case 0:
-			format(out, len, "Player0");
-		case 1:
-			format(out, len, "Player1");
-		case 2:
-			format(out, len, "Player2");
-	}
-}
-FakeGetPlayerColor(playerid) {
-	switch(playerid) {
-		case 0:
-			return X11_RED;
-		case 1:
-			return X11_GREEN;
-		case 2:
-			return X11_BLUE;
-	}
-	return 0;
-}
-*/
 
 main() {
-	new
-		out[128],
-		ret;
+	SetPlayerName(0, "Player0");
+	SetPlayerName(1, "Player1");
+	SetPlayerName(2, "Player2");
+	SetPlayerColor(0, 0xFF0000AA);
+	SetPlayerColor(1, 0x00FF00AA);
+	SetPlayerColor(2, 0x0000FFAA);
+}
 
-	blank(out);
-	ret = ExpandMentions("&rred &ggreen &bblue", out, 128, X11_WHITE);
+Test:ColourCodes() {
+	new out[128];
+	new ret = ExpandMentions("&rred, &ggreen, &bblue.", out, 128, X11_WHITE);
 	printf("%d: '%s'", ret, out);
+	ASSERT(!strcmp(out, "{FF0000}red, {00FF00}green, {0000FF}blue."));
+	ASSERT(ret == 3);
+}
 
-	blank(out);
-	ret = ExpandMentions("&rred &ggreen &bblue", out, 20, X11_WHITE);
+Test:ColourCodesOverflow() {
+	new out[128];
+	new ret = ExpandMentions("&rred &ggreen &bblue", out, 21, X11_WHITE);
 	printf("%d: '%s'", ret, out);
+	ASSERT(!strcmp(out, "{FF0000}red {00FF00}g"));
+	ASSERT(ret == 2);
+}
 
-	blank(out);
-	ret = ExpandMentions("@0", out, 128, X11_WHITE);
+Test:MentionOne() {
+	new out[128];
+	new ret = ExpandMentions("@0", out, 128, X11_WHITE);
 	printf("%d: '%s'", ret, out);
+	ASSERT(!strcmp(out, "{000000}Player0{FFFFFF}"));
+	ASSERT(ret == 1);
+}
 
-	blank(out);
-	ret = ExpandMentions("Hello @0, do you know @1 and @2?", out, 128, X11_WHITE);
+Test:MentionThree() {
+	new out[128];
+	new ret = ExpandMentions("Hello @0, do you know @1 and @2?", out, 128, X11_WHITE);
 	printf("%d: '%s'", ret, out);
+	ASSERT(!strcmp(out, "Hello {000000}Player0{FFFFFF}, do you know {000000}Player1{FFFFFF} and {000000}Player2{FFFFFF}?"));
+	ASSERT(ret == 3);
+}
 
-	blank(out);
-	ret = ExpandMentions("attempt to recolour &r@1&b", out, 128, X11_WHITE);
+Test:MentionWithColours() {
+	new out[128];
+	new ret = ExpandMentions("&battempt to recolour &r@1&b", out, 128, X11_WHITE);
 	printf("%d: '%s'", ret, out);
+	ASSERT(!strcmp(out, "{0000FF}attempt to recolour {FF0000}{000000}Player1{FFFFFF}&b"));
+	ASSERT(ret == 3);
 }
 
 blank(s[], len = sizeof(s)) {

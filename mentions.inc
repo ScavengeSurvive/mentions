@@ -37,8 +37,8 @@ stock ExpandMentions(input[], output[], outCap, colour) {
 
 	format(endColour, sizeof(endColour), "{%06x}", colour >>> 8);
 
-	for( ; index < inLen && numTags < 3 && outLen < outCap; ++index) {
-		if(input[index] == '@') {
+	for( ; index < inLen && outLen < outCap; ++index) {
+		if(input[index] == '@' && numTags < 3) {
 			if(_mentions_isNumeric(input[index + 1])) {
 				mentionID = strval(input[index + 1]);
 				if(IsPlayerConnected(mentionID)) {
@@ -57,7 +57,7 @@ stock ExpandMentions(input[], output[], outCap, colour) {
 					skip = true;
 				}
 			}
-		} else if(input[index] == '&') {
+		} else if(input[index] == '&' && numTags < 3) {
 			if(_mentions_isAlphabetic(input[index + 1])) {
 				colourEmbed = _mentions_getEmbedColourIdx(input[index + 1]);
 				if(colourEmbed != -1) {

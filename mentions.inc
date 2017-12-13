@@ -1,7 +1,7 @@
-#if defined _actions_included
+#if defined _mentions_included
 	#endinput
 #endif
-#define _actions_included
+#define _mentions_included
 
 #include <YSI\y_colours>
 

@@ -1,10 +1,8 @@
 {
-    // See https://go.microsoft.com/fwlink/?LinkId=733558
-    // for the documentation about the tasks.json format
     "version": "2.0.0",
     "tasks": [
         {
-            "label": "build",
+            "label": "build only",
             "type": "shell",
             "command": "sampctl package build",
             "group": {
@@ -16,19 +14,46 @@
                 "reveal": "silent",
                 "panel": "dedicated"
             },
-            "problemMatcher": {
-                "fileLocation": ["relative", "${workspaceRoot}"],
-                "pattern": [
-                    {
-                        "regexp":
-                            "^(.*?)\\(([0-9]*)[- 0-9]*\\) \\: (fatal error|error|warning) [0-9]*\\: (.*)$",
-                        "file": 1,
-                        "location": 2,
-                        "severity": 3,
-                        "message": 4
-                    }
-                ]
-            }
+            "problemMatcher": "$sampctl"
+        },
+        {
+            "label": "build watcher",
+            "type": "shell",
+            "command": "sampctl package build --watch",
+            "group": "build",
+            "isBackground": true,
+            "presentation": {
+                "reveal": "silent",
+                "panel": "dedicated"
+            },
+            "problemMatcher": "$sampctl"
+        },
+        {
+            "label": "run tests",
+            "type": "shell",
+            "command": "sampctl package run",
+            "group": {
+                "kind": "test",
+                "isDefault": true
+            },
+            "isBackground": true,
+            "presentation": {
+                "reveal": "silent",
+                "panel": "dedicated"
+            },
+            "problemMatcher": "$sampctl"
+        },
+        {
+            "label": "run tests watcher",
+            "type": "shell",
+            "command": "sampctl package run --watch",
+            "group": "test",
+            "isBackground": true,
+            "presentation": {
+                "reveal": "silent",
+                "panel": "dedicated"
+            },
+            "problemMatcher": "$sampctl"
         }
     ]
 }

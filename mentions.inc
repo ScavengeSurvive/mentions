@@ -1,8 +1,15 @@
+// built-in include guard removal
+// just in case the user has a local dependency with the same file name
+#if defined _inc_mentions
+    #undef _inc_mentions
+#endif
+// custom include-guard to ensure we don't duplicate
 #if defined _mentions_included
 	#endinput
 #endif
 #define _mentions_included
 
+#include <a_samp>
 #include <YSI\y_colours>
 
 

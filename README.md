@@ -41,15 +41,15 @@ Becomes:
 
 `This {FF0000}text {00FF00}is {0000FF}coloured!`
 
-## Usage
+## Installation
 
-Simply add to your `pawn.json` and include:
+Simply install to your project:
 
-```json
-{
-    "dependencies": ["ScavengeSurvive/mentions"]
-}
+```bash
+sampctl package install ScavengeSurvive/mentions
 ```
+
+Include in your code and begin using the library:
 
 ```pawn
 #include <mentions>
@@ -60,5 +60,7 @@ Simply add to your `pawn.json` and include:
 To test, simply run the package:
 
 ```bash
-sampctl package run --forceBuild --forceEnsure
+sampctl package run
 ```
+
+And observe the y_testing output.

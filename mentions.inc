@@ -10,7 +10,7 @@
 #define _mentions_included
 
 #include <a_samp>
-#include <YSI\y_colours>
+#include <YSI_Server\y_colours>
 
 
 enum E_COLOUR_EMBED_DATA {

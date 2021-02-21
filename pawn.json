@@ -5,8 +5,8 @@
     "output": "test.amx",
     "dependencies": [
         "sampctl/samp-stdlib",
-        "Zeex/amx_assembly",
-        "pawn-lang/YSI-Includes"
+        "Zeex/amx_assembly:v1.0",
+        "pawn-lang/YSI-Includes:v5.4.102"
     ],
     "dev_dependencies": [
         "ScavengeSurvive/test-boilerplate",

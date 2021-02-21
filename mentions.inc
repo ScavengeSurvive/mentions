@@ -29,7 +29,7 @@ static embedColours[8][E_COLOUR_EMBED_DATA] = {
 	{'n', NAVY}
 };
 
-stock ExpandMentions(input[], output[], outCap, colour) {
+stock ExpandMentions(const input[], output[], outCap, colour) {
 	new
 		inLen = strlen(input),
 		outLen = 0,

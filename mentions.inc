@@ -29,7 +29,7 @@ static embedColours[8][E_COLOUR_EMBED_DATA] = {
 	{'n', NAVY}
 };
 
-stock ExpandMentions(const input[], output[], outCap, colour) {
+stock ExpandMentions(const input[], output[], outCap, colour, bool:withPlayerColour = true, bool:withColourEmbed = true) {
 	new
 		inLen = strlen(input),
 		outLen = 0,
@@ -53,9 +53,15 @@ stock ExpandMentions(const input[], output[], outCap, colour) {
 					format(mentionColour, sizeof(mentionColour), "{%06x}", GetPlayerColor(mentionID) >>> 8);
 
 					// concatenate the player's colour code, their name and then reset the colour
-					strcat(output, mentionColour, outCap);
+					if (withPlayerColour) {
+						strcat(output, mentionColour, outCap); 
+					}
+
 					strcat(output, mentionName, outCap);
-					strcat(output, endColour, outCap);
+
+					if (withPlayerColour) {
+						strcat(output, endColour, outCap);
+					}
 
 					// update the output string length
 					outLen += 8 + strlen(mentionName) + 8;
@@ -64,7 +70,7 @@ stock ExpandMentions(const input[], output[], outCap, colour) {
 					skip = true;
 				}
 			}
-		} else if(input[index] == '&' && numTags < 3) {
+		} else if(input[index] == '&' && numTags < 3 && withColourEmbed) {
 			if(_mentions_isAlphabetic(input[index + 1])) {
 				colourEmbed = _mentions_getEmbedColourIdx(input[index + 1]);
 				if(colourEmbed != -1) {
